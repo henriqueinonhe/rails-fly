@@ -1,0 +1,38 @@
+<form method="POST" action="/airports/create">
+  <div>
+    <%= @errors.nil? ? "" : "Validation error!" %>
+  </div>
+
+  <div>
+    <label for="code">Airport Code</label>
+    <input id="code" name="code" type="text">
+  </div>
+
+  <div>
+    <label for="name">Name</label>
+    <input id="name" name="name" type="text">
+  </div>
+
+  <div>
+    <label for="country_code">Country Code</label>
+    <input id="country_code" name="country_code" type="text">
+  </div>
+
+  <div>
+    <label for="city">City</label>
+    <input id="city" name="city" type="text">
+  </div>
+
+  <div>
+    <label for="terminal">Terminal</label>
+    <input id="terminal" name="terminal" type="text">
+  </div>
+
+  <div>
+    <label for="region">Region</label>
+    <input id="region" name="region" type="text">
+  </div>
+
+  <button type="submit">Create</button>
+
+</form>

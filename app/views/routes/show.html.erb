@@ -1,0 +1,19 @@
+<dl>
+  <dt>Origin</dt>
+  <dd>
+    <a href="/airports/<%= @route.origin.id %>">
+      <%= @route.origin.code %>
+    </a>
+  </dd>
+
+  <dt>Destination</dt>
+  <dd>
+    <a href="/airports/<%= @route.destination.id %>">
+      <%= @route.destination.code %>
+    </a>
+  </dd>
+</dl>
+
+<a href="/routes/<%= @route.id %>/edit">Edit</a>
+
+<a href="/routes">Index</a>

@@ -1,0 +1,9 @@
+<ul>
+  <% @routes.each do |route| %>
+    <li>
+      <a href="/routes/<%= route.id %>"><%= route.origin.code %> - <%= route.destination.code %></a>
+    </li>
+  <% end %>
+
+  <a href="/routes/new">Create</a>
+</ul>

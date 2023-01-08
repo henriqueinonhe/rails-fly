@@ -1,0 +1,9 @@
+<ul>
+  <% @airports.each do |airport| %>
+    <li>
+      <a href="/airports/<%= airport.id %>"><%= airport.name %> (<%= airport.code %>)</a>
+    </li>
+  <% end %>
+
+  <a href="/airports/new">Create</a>
+</ul>

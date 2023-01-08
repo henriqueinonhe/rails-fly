@@ -1,0 +1,33 @@
+<form method="POST" action="/routes/create">
+  <div>
+    <%= @errors.nil? ? "" : "Validation error!" %>
+  </div>
+
+  <div>
+    <label for="origin">Origin</label>
+
+    <select name="origin" id="origin">
+      <% @airports.each do |airport| %>
+        <option <%= airport.id == @route.origin.id && "selected" %> value="<%= airport.id %>"><%= airport.code %></option>
+      <% end %>
+    </select>
+  </div>
+
+  <div>
+    <label for="destination">Destination</label>
+
+    <select name="destination" id="destination">
+      <% @airports.each do |airport| %>
+        <option <%= airport.id == @route.destination.id && "selected" %> value="<%= airport.id %>"><%= airport.code %></option>
+      <% end %>
+    </select>
+  </div>
+
+  <button type="submit">Update</button>
+</form>
+
+<form method="POST" action="/routes/<%= @route.id %>/delete">
+  <button type="submit">Delete</button>
+</form>
+
+<a href="/routes">Index</a>

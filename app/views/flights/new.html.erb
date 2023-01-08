@@ -1,0 +1,68 @@
+<form method="POST" action="/flights/create">
+  <div>
+    <%= @errors.nil? ? "" : "Validation error!" %>
+  </div>
+
+  <div>
+    <label for="route">Route</label>
+
+    <select name="route" id="route">
+      <% @routes.each do |route| %>
+        <option value="<%= route.id %>"><%= route.origin.code %> - <%= route.destination.code %></option>
+      <% end %>
+    </select>
+  </div>
+
+  <div>
+    <label for="price">Price</label>
+    <input name="price" id="price" type="number">
+  </div>
+
+  <div>
+    <label for="deprature_at">Departure At</label>
+    <input name="deprature_at" id="deprature_at" type="datetime-local">
+  </div>
+
+  <div>
+    <label for="arrival_at">Arrival At</label>
+    <input name="arrival_at" id="arrival_at" type="datetime-local">
+  </div>
+
+  <div>
+    <label for="seats">Seats</label>
+    <input name="seats" id="seats" type="number">
+  </div>
+
+  <div>
+    <label for="max_infants_allowed">Max Infants Allowed</label>
+    <input name="max_infants_allowed" id="max_infants_allowed" type="number">
+  </div>
+
+  <div>
+    <label for="Max Pets Allowed">Max Pets Allowed</label>
+    <input name="Max Pets Allowed" id="Max Pets Allowed" type="number">
+  </div>
+
+  <div>
+    <label for="min_seats_threshold">Min Seats Threshold</label>
+    <input name="min_seats_threshold" id="min_seats_threshold" type="number">
+  </div>
+
+  <div>
+    <label for="currency">Currency</label>
+    <input name="currency" id="currency" type="text">
+  </div>
+
+  <div>
+    <label for="marketing_carrier_code">Marketing Carrier Code</label>
+    <input name="marketing_carrier_code" id="min_seats_threshold" type="text">
+  </div>
+
+  <div>
+    <label for="number">Number</label>
+    <input name="number" id="number" type="text">
+  </div>
+
+  <button type="submit">Create</button>
+
+</form>

@@ -1,0 +1,43 @@
+<form method="POST" action="/airports/<%= @airport.id %>/update">
+  <div>
+    <%= @errors.nil? ? "" : "Validation error!" %>
+  </div>
+
+  <div>
+    <label for="code">Airport Code</label>
+    <input id="code" name="code" type="text" value="<%= @airport.code %>">
+  </div>
+
+  <div>
+    <label for="name">Name</label>
+    <input id="name" name="name" type="text" value="<%= @airport.name %>">
+  </div>
+
+  <div>
+    <label for="country_code">Country Code</label>
+    <input id="country_code" name="country_code" type="text" value="<%= @airport.country_code %>">
+  </div>
+
+  <div>
+    <label for="city">City</label>
+    <input id="city" name="city" type="text" value="<%= @airport.city %>">
+  </div>
+
+  <div>
+    <label for="terminal">Terminal</label>
+    <input id="terminal" name="terminal" type="text" value="<%= @airport.terminal %>">
+  </div>
+
+  <div>
+    <label for="region">Region</label>
+    <input id="region" name="region" type="text" value="<%= @airport.region %>">
+  </div>
+
+  <button type="submit">Update</button>
+</form>
+
+<form method="POST" action="/airports/<%= @airport.id %>/delete">
+  <button type="submit" >Delete</a>
+</form>
+
+<a href="/airports">Index</a>

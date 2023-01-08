@@ -4,6 +4,17 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
 
+  namespace :api do
+    # Airports
+    get '/airports', to: 'airports#index'
+
+    # Routes
+    get '/routes', to: 'routes#index'
+
+    # Flights
+    get '/flights', to: 'flights#index'
+  end
+
   # Airports
   get '/airports', to: 'airports#index'
   get '/airports/new', to: 'airports#new'
@@ -30,4 +41,6 @@ Rails.application.routes.draw do
   post '/flights/create', to: 'flights#create'
   post '/flights/:id/update', to: 'flights#update'
   post '/flights/:id/delete', to: 'flights#delete'
+
+  get '/test', to: 'flights#test'
 end

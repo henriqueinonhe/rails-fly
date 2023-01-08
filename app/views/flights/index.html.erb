@@ -1,0 +1,11 @@
+<ul>
+  <% @flights.each do |flight| %>
+    <li>
+      <a href="/flights/<%= flight.id %>">
+        <%= flight.departure_at %>  <%= flight.route.origin.code %> - <%= flight.route.destination.code %>
+      </a>
+    </li>
+  <% end %>
+
+  <a href="/flights/new">Create</a>
+</ul>

@@ -1,0 +1,60 @@
+<dl>
+  <dt>Route</dt>
+  <dd>
+    <a href="/routes/<%= @flight.route.id %>"><%= @flight.route.origin.code %> - <%= @flight.route.destination.code %></a>
+  </dd>
+
+  <dt>Price</dt>
+  <dd>
+    <%= @flight.adult_seat_price %>
+  </dd>
+
+  <dt>Departure At</dt>
+  <dd>
+    <%= @flight.departure_at %>
+  </dd>
+
+  <dt>Arrival At</dt>
+  <dd>
+    <%= @flight.arrival_at %>
+  </dd>
+
+  <dt>Seats</dt>
+  <dd>
+    <%= @flight.seats %>
+  </dd>
+
+  <dt>Max Infants Allowed</dt>
+  <dd>
+    <%= @flight.max_infants_allowed %>
+  </dd>
+
+  <dt>Max Pets Allwoed</dt>
+  <dd>
+    <%= @flight.max_pets_allowed %>
+  </dd>
+
+  <dt>Min Seats Threshold</dt>
+  <dd>
+    <%= @flight.min_seats_threshold %>
+  </dd>
+
+  <dt>Currency</dt>
+  <dd>
+    <%= @flight.currency %>
+  </dd>
+
+  <dt>Marketing Carrier Code</dt>
+  <dd>
+    <%= @flight.marketing_carrier_code %>
+  </dd>
+
+  <dt>Number</dt>
+  <dd>
+    <%= @flight.number %>
+  </dd>
+</dl>
+
+<a href="/flights/<%= @flight.id %>/edit">Edit</a>
+
+<a href="/flights">Index</a>

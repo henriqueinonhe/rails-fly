@@ -1,0 +1,23 @@
+<dl>
+  <dt>Code</dt>
+  <dd><%= @airport.code %></dd>
+
+  <dt>Name</dt>
+  <dd><%= @airport.name %></dd>
+
+  <dt>Country Code</dt>
+  <dd><%= @airport.country_code %></dd>
+
+  <dt>City</dt>
+  <dd><%= @airport.city %></dd>
+
+  <dt>Terminal</dt>
+  <dd><%= @airport.terminal %></dd>
+
+  <dt>Region</dt>
+  <dd><%= @airport.region %></dd>
+</dl>
+
+<a href="/airports/<%= @airport.id %>/edit">Edit</a>
+
+<a href="/airports">Index</a>
