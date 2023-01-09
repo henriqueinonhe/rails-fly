@@ -39,23 +39,31 @@ class Domain::Airport
     Domain::AirportValidator.throw_on_error(
       Domain::AirportValidator.validate_country_code(country_code)
     )
+
+    @country_code = country_code
   end
 
   def city=(city)
     Domain::AirportValidator.throw_on_error(
       Domain::AirportValidator.validate_city(city)
     )
+
+    @city = city
   end
 
   def terminal=(terminal)
     Domain::AirportValidator.throw_on_error(
-      Domain::AirportValidator.terminal(terminal)
+      Domain::AirportValidator.validate_terminal(terminal)
     )
+
+    @terminal = terminal
   end
 
   def region=(region)
     Domain::AirportValidator.throw_on_error(
-      Domain::AirportValidator.region(region)
+      Domain::AirportValidator.validate_region(region)
     )
+
+    @region = region
   end
 end
