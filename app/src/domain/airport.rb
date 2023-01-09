@@ -14,7 +14,13 @@ class Domain::Airport
       Domain::AirportValidator.validate_airport_data(data)
     )
 
-    @data = data
+    @id = id
+    @code = code
+    @name = name
+    @country_code = country_code
+    @city = city
+    @terminal = terminal
+    @region = region
   end
 
   attr_reader :id, :code, :name, :country_code, :city, :terminal, :region
