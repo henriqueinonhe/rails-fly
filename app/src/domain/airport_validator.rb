@@ -30,14 +30,16 @@ module Domain::AirportValidator
     terminal = data[:terminal]
     region = data[:region]
 
+    id_errors = validate_id(id)
     code_errors = validate_code(code)
     name_errors = validate_name(name)
     country_code_errors = validate_country_code(country_code)
     city_errors = validate_city(city)
-    terminal_errors = validate_terminal_errors(terminal)
+    terminal_errors = validate_terminal(terminal)
     region_errors = validate_region(region)
 
     [
+      *id_errors,
       *code_errors,
       *name_errors,
       *country_code_errors,
@@ -47,11 +49,24 @@ module Domain::AirportValidator
     ]
   end
 
+  def self.validate_id(id)
+    unless id.is_a? String
+      return [
+        Domain::AirportValidationError.new(
+          message: "Airport `id` is expected to be a string, but #{id.class} was received instead.",
+          reason: 'ID_IS_NOT_A_STRING'
+        )
+      ]
+    end
+
+    []
+  end
+
   def self.validate_code(code)
     if code.length < CODE_MIN_LENGTH
       return [Domain::AirportValidationError.new(
         message: "Airport `code` is expected to have length between #{CODE_MIN_LENGTH} and #{CODE_MAX_LENGTH} inclusive, but #{code.length} was received instead.",
-        reason: 'CODE_TOO_SMALL'
+        reason: 'CODE_TOO_SHORT'
       )]
     end
 
@@ -78,14 +93,14 @@ module Domain::AirportValidator
     if name.length < NAME_MIN_LENGTH
       return [Domain::AirportValidationError.new(
         message: "Airport `name` is expected to have length between #{NAME_MIN_LENGTH} and #{NAME_MAX_LENGTH} inclusive, but #{name.length} was received instead.",
-        reason: 'NAME_TOO_BIG'
+        reason: 'NAME_TOO_SHORT'
       )]
     end
 
     if name.length > NAME_MAX_LENGTH
       return [Domain::AirportValidationError.new(
         message: "Airport `name` is expected to have length between #{NAME_MIN_LENGTH} and #{NAME_MAX_LENGTH} inclusive, but #{name.length} was received instead.",
-        reason: 'NAME_TOO_SMALL'
+        reason: 'NAME_TOO_BIG'
       )]
     end
 
@@ -96,14 +111,14 @@ module Domain::AirportValidator
     if country_code.length < COUNTRY_CODE_MIN_LENGTH
       return [Domain::AirportValidationError.new(
         message: "Airport `country_code` is expected to have length between #{COUNTRY_CODE_MIN_LENGTH} and #{COUNTRY_CODE_MAX_LENGTH} inclusive, but #{country_code.length} was received instead.",
-        reason: 'COUNTRY_CODE_TOO_BIG'
+        reason: 'COUNTRY_CODE_TOO_SHORT'
       )]
     end
 
     if country_code.length > COUNTRY_CODE_MAX_LENGTH
-      [Domain::AirportValidationError.new(
-        message: "Airport `country_code` is expected to have length between #{COUNTRY_CODE_MIN_LENGTH} and #{COUNTRY_CODE_MAX_LENGTH} inclusive, but #{COUNTRY_CODE.length} was received instead.",
-        reason: 'COUNTRY_CODE_TOO_SMALL'
+      return [Domain::AirportValidationError.new(
+        message: "Airport `country_code` is expected to have length between #{COUNTRY_CODE_MIN_LENGTH} and #{COUNTRY_CODE_MAX_LENGTH} inclusive, but #{country_code.length} was received instead.",
+        reason: 'COUNTRY_CODE_TOO_BIG'
       )]
     end
 
@@ -121,14 +136,14 @@ module Domain::AirportValidator
     if city.length < CITY_MIN_LENGTH
       return [Domain::AirportValidationError.new(
         message: "Airport `city` is expected to have length between #{CITY_MIN_LENGTH} and #{CITY_MAX_LENGTH} inclusive, but #{city.length} was received instead.",
-        reason: 'CITY_TOO_BIG'
+        reason: 'CITY_TOO_SHORT'
       )]
     end
 
     if city.length > CITY_MAX_LENGTH
-      [Domain::AirportValidationError.new(
+      return [Domain::AirportValidationError.new(
         message: "Airport `city` is expected to have length between #{CITY_MIN_LENGTH} and #{CITY_MAX_LENGTH} inclusive, but #{city.length} was received instead.",
-        reason: 'CITY_TOO_SMALL'
+        reason: 'CITY_TOO_BIG'
       )]
     end
 
@@ -139,7 +154,7 @@ module Domain::AirportValidator
     if terminal.length < TERMINAL_MIN_LENGTH
       return [Domain::AirportValidationError.new(
         message: "Airport `terminal` is expected to have length between #{TERMINAL_MIN_LENGTH} and #{TERMINAL_MAX_LENGTH} inclusive, but #{terminal.length} was received instead.",
-        reason: 'TERMINAL_TOO_SMALL'
+        reason: 'TERMINAL_TOO_SHORT'
       )]
     end
 
@@ -157,7 +172,7 @@ module Domain::AirportValidator
     if region.length < REGION_MIN_LENGTH
       return [Domain::AirportValidationError.new(
         message: "Airport `region` is expected to have length between #{REGION_MIN_LENGTH} and #{REGION_MAX_LENGTH} inclusive, but #{region.length} was received instead.",
-        reason: 'REGION_TOO_SMALL'
+        reason: 'REGION_TOO_SHORT'
       )]
     end
 

@@ -3,4 +3,6 @@ class Domain::AirportValidationError
     @message = message
     @reason = reason
   end
+
+  attr_reader :message, :reason
 end
