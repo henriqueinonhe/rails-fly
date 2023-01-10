@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   namespace :api do
     # Airports
     get '/airports', to: 'airports#index'
+    post '/airports/create', to: 'airports#create'
 
     # Routes
     get '/routes', to: 'routes#index'
