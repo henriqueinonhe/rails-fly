@@ -1,18 +1,18 @@
 module Application::AirportsUseCases
   def self.get_airports
-    Infrastructure::AirportsRepository.get_airports
+    Domain::AirportsRepository.get_airports
   end
 
   def self.create_airport(create_airport_dto)
-    Infrastructure::AirportsRepository.create_airport(create_airport_dto)
+    Domain::AirportsRepository.create_airport(create_airport_dto)
   end
 
   def self.update_airport(id, update_airport_dto)
     unless update_airport_dto.instance_of? Domain::UpdateAirportDto
-      raise Infrastructure::AirportsRepositoryException, 'An UpdateAirportDto was expected here!'
+      raise Exceptions::LogicException, 'An UpdateAirportDto was expected here!'
     end
 
-    airport = Infrastructure::AirportsRepository.get_airport_by_id(id)
+    airport = Domain::AirportsRepository.get_airport_by_id(id)
 
     airport.code = update_airport_dto.code
     airport.name = update_airport_dto.name
@@ -21,6 +21,12 @@ module Application::AirportsUseCases
     airport.terminal = update_airport_dto.terminal
     airport.region = update_airport_dto.region
 
-    Infrastructure::AirportsRepository.save_airport(airport)
+    Domain::AirportsRepository.save_airport(airport)
+  end
+
+  def self.delete_airport(id)
+    airport = Domain::AirportsRepository.get_airport_by_id(id)
+
+    Domain::AirportsRepository.delete_airport(airport)
   end
 end

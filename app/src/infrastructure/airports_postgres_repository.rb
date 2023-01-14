@@ -1,4 +1,4 @@
-module Infrastructure::AirportsRepository
+module Infrastructure::AirportsPostgresRepository
   def self.get_airports
     serialized_airports = Airport.all
 
@@ -10,14 +10,20 @@ module Infrastructure::AirportsRepository
   def self.get_airport_by_id(id)
     serialized_airport = Airport.find_by(id:)
 
-    raise Infrastructure::AirportsRepositoryException, 'There is no airport with id #{id}!' unless serialized_airport
+    unless serialized_airport
+      errors = [Domain::AirportValidationError.new(
+        message: 'There is no airport with id #{id}!',
+        reason: 'AIRPORT_NOT_FOUND'
+      )]
+      raise Domain::AirportValidationException, errors
+    end
 
     map_serialized_airport_to_airport(serialized_airport)
   end
 
   def self.create_airport(create_airport_dto)
     unless create_airport_dto.instance_of? Domain::CreateAirportDto
-      raise Infrastructure::AirportsRepositoryException, 'A CreateAirportDto was expected here!'
+      raise Exceptions::LogicError, 'A CreateAirportDto was expected here!'
     end
 
     serialized_airport = nil
@@ -26,8 +32,12 @@ module Infrastructure::AirportsRepository
       duplicate_airport_candidate = Airport.find_by(code: create_airport_dto.code)
 
       if duplicate_airport_candidate
-        raise Infrastructure::AirportsRepositoryException,
-              "There is already an airport with code '#{create_airport_dto.code}'!"
+        errors = [
+          Domain::AirportValidationError.new(
+            message: "There is already an airport with code '#{airport.code}'!",
+            reason: 'DUPLICATE_AIRPORT_CODE'
+          )
+        ]
       end
 
       serialized_airport = Airport.new(
@@ -45,16 +55,18 @@ module Infrastructure::AirportsRepository
   end
 
   def self.save_airport(airport)
-    unless airport.instance_of? Domain::Airport
-      raise Infrastructure::AirportsRepositoryException, 'An Airport was expected here!'
-    end
+    raise Exceptions::LogicException, 'An Airport was expected here!' unless airport.instance_of? Domain::Airport
 
     Airport.transaction(isolation: :serializable) do
       duplicate_airport_candidate = get_airport_by_id(airport.id)
 
       if duplicate_airport_candidate && duplicate_airport_candidate.id != airport.id
-        raise Infrastructure::AirportsRepositoryException,
-              "There is already an airport with code '#{airport.code}'!"
+        errors = [
+          Domain::AirportValidationError.new(
+            message: "There is already an airport with code '#{airport.code}'!",
+            reason: 'DUPLICATE_AIRPORT_CODE'
+          )
+        ]
       end
 
       serialized_airport = Airport.find_by(id: airport.id)
@@ -66,6 +78,17 @@ module Infrastructure::AirportsRepository
       serialized_airport.region = airport.region
 
       serialized_airport.save
+    end
+
+    airport
+  end
+
+  def self.delete_airport(airport)
+    raise Exceptions::LogicException, 'An Airport was expected here!' unless airport.instance_of? Domain::Airport
+
+    Airport.transaction(isolation: :serializable) do
+      serialized_airport = Airport.find_by(id: airport.id)
+      serialized_airport.destroy
     end
 
     airport

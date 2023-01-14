@@ -1,0 +1,1 @@
+Domain::AirportsRepository = Infrastructure::AirportsPostgresRepository
