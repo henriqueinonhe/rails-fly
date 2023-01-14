@@ -63,6 +63,15 @@ module Domain::AirportValidator
   end
 
   def self.validate_code(code)
+    unless code.is_a? String
+      return [
+        Domain::AirportValidationError.new(
+          message: "Airport `code` is expected to be a string, but #{code.class} was received instead.",
+          reason: 'CODE_IS_NOT_A_STRING'
+        )
+      ]
+    end
+
     if code.length < CODE_MIN_LENGTH
       return [Domain::AirportValidationError.new(
         message: "Airport `code` is expected to have length between #{CODE_MIN_LENGTH} and #{CODE_MAX_LENGTH} inclusive, but #{code.length} was received instead.",
@@ -90,6 +99,15 @@ module Domain::AirportValidator
   end
 
   def self.validate_name(name)
+    unless name.is_a? String
+      return [
+        Domain::AirportValidationError.new(
+          message: "Airport `name` is expected to be a string, but #{name.class} was received instead.",
+          reason: 'NAME_IS_NOT_A_STRING'
+        )
+      ]
+    end
+
     if name.length < NAME_MIN_LENGTH
       return [Domain::AirportValidationError.new(
         message: "Airport `name` is expected to have length between #{NAME_MIN_LENGTH} and #{NAME_MAX_LENGTH} inclusive, but #{name.length} was received instead.",
@@ -108,6 +126,15 @@ module Domain::AirportValidator
   end
 
   def self.validate_country_code(country_code)
+    unless country_code.is_a? String
+      return [
+        Domain::AirportValidationError.new(
+          message: "Airport `country_code` is expected to be a string, but #{country_code.class} was received instead.",
+          reason: 'COUNTRY_CODE_IS_NOT_A_STRING'
+        )
+      ]
+    end
+
     if country_code.length < COUNTRY_CODE_MIN_LENGTH
       return [Domain::AirportValidationError.new(
         message: "Airport `country_code` is expected to have length between #{COUNTRY_CODE_MIN_LENGTH} and #{COUNTRY_CODE_MAX_LENGTH} inclusive, but #{country_code.length} was received instead.",
@@ -133,6 +160,15 @@ module Domain::AirportValidator
   end
 
   def self.validate_city(city)
+    unless city.is_a? String
+      return [
+        Domain::AirportValidationError.new(
+          message: "Airport `city` is expected to be a string, but #{city.class} was received instead.",
+          reason: 'CITY_IS_NOT_A_STRING'
+        )
+      ]
+    end
+
     if city.length < CITY_MIN_LENGTH
       return [Domain::AirportValidationError.new(
         message: "Airport `city` is expected to have length between #{CITY_MIN_LENGTH} and #{CITY_MAX_LENGTH} inclusive, but #{city.length} was received instead.",
@@ -151,6 +187,15 @@ module Domain::AirportValidator
   end
 
   def self.validate_terminal(terminal)
+    unless terminal.is_a? String
+      return [
+        Domain::AirportValidationError.new(
+          message: "Airport `terminal` is expected to be a string, but #{terminal.class} was received instead.",
+          reason: 'TERMINAL_IS_NOT_A_STRING'
+        )
+      ]
+    end
+
     if terminal.length < TERMINAL_MIN_LENGTH
       return [Domain::AirportValidationError.new(
         message: "Airport `terminal` is expected to have length between #{TERMINAL_MIN_LENGTH} and #{TERMINAL_MAX_LENGTH} inclusive, but #{terminal.length} was received instead.",
@@ -169,6 +214,15 @@ module Domain::AirportValidator
   end
 
   def self.validate_region(region)
+    unless region.is_a? String
+      return [
+        Domain::AirportValidationError.new(
+          message: "Airport `region` is expected to be a string, but #{region.class} was received instead.",
+          reason: 'REGION_IS_NOT_A_STRING'
+        )
+      ]
+    end
+
     if region.length < REGION_MIN_LENGTH
       return [Domain::AirportValidationError.new(
         message: "Airport `region` is expected to have length between #{REGION_MIN_LENGTH} and #{REGION_MAX_LENGTH} inclusive, but #{region.length} was received instead.",

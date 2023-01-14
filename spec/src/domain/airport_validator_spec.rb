@@ -39,6 +39,21 @@ RSpec.describe Domain::AirportValidator do
       Domain::AirportValidator.validate_code(code)
     end
 
+    context 'When `code` is not a string' do
+      def second_setup
+        setup(code: 132)
+      end
+
+      it 'Returns CODE_IS_NOT_A_STRING' do
+        errors = second_setup
+        first_error = errors.first
+
+        expect(errors.length).to eq(1)
+        expect(first_error).to be_instance_of(Domain::AirportValidationError)
+        expect(first_error.reason).to eq('CODE_IS_NOT_A_STRING')
+      end
+    end
+
     context 'When `code` is too short' do
       def second_setup
         setup(code: 'AP')
@@ -102,6 +117,21 @@ RSpec.describe Domain::AirportValidator do
       Domain::AirportValidator.validate_name(name)
     end
 
+    context 'When `name` is not a string' do
+      def second_setup
+        setup(name: 132)
+      end
+
+      it 'Returns NAME_IS_NOT_A_STRING' do
+        errors = second_setup
+        first_error = errors.first
+
+        expect(errors.length).to eq(1)
+        expect(first_error).to be_instance_of(Domain::AirportValidationError)
+        expect(first_error.reason).to eq('NAME_IS_NOT_A_STRING')
+      end
+    end
+
     context 'When `name` is too short' do
       def second_setup
         setup(name: 'A')
@@ -148,6 +178,21 @@ RSpec.describe Domain::AirportValidator do
   context 'validate_country_code' do
     def setup(country_code:)
       Domain::AirportValidator.validate_country_code(country_code)
+    end
+
+    context 'When `country_code` is not a string' do
+      def second_setup
+        setup(country_code: 132)
+      end
+
+      it 'Returns COUNTRY_CODE_IS_NOT_A_STRING' do
+        errors = second_setup
+        first_error = errors.first
+
+        expect(errors.length).to eq(1)
+        expect(first_error).to be_instance_of(Domain::AirportValidationError)
+        expect(first_error.reason).to eq('COUNTRY_CODE_IS_NOT_A_STRING')
+      end
     end
 
     context 'When `country_code` is too short' do
@@ -213,6 +258,21 @@ RSpec.describe Domain::AirportValidator do
       Domain::AirportValidator.validate_city(city)
     end
 
+    context 'When `city` is not a string' do
+      def second_setup
+        setup(city: 132)
+      end
+
+      it 'Returns CITY_IS_NOT_A_STRING' do
+        errors = second_setup
+        first_error = errors.first
+
+        expect(errors.length).to eq(1)
+        expect(first_error).to be_instance_of(Domain::AirportValidationError)
+        expect(first_error.reason).to eq('CITY_IS_NOT_A_STRING')
+      end
+    end
+
     context 'When `city` is too short' do
       def second_setup
         setup(city: 'A' * (Domain::AirportValidator::CITY_MIN_LENGTH - 1))
@@ -261,6 +321,21 @@ RSpec.describe Domain::AirportValidator do
       Domain::AirportValidator.validate_terminal(terminal)
     end
 
+    context 'When `terminal` is not a string' do
+      def second_setup
+        setup(terminal: 132)
+      end
+
+      it 'Returns TERMINAL_IS_NOT_A_STRING' do
+        errors = second_setup
+        first_error = errors.first
+
+        expect(errors.length).to eq(1)
+        expect(first_error).to be_instance_of(Domain::AirportValidationError)
+        expect(first_error.reason).to eq('TERMINAL_IS_NOT_A_STRING')
+      end
+    end
+
     context 'When `terminal` is too short' do
       def second_setup
         setup(terminal: 'A' * (Domain::AirportValidator::TERMINAL_MIN_LENGTH - 1))
@@ -307,6 +382,21 @@ RSpec.describe Domain::AirportValidator do
   context 'validate_region' do
     def setup(region:)
       Domain::AirportValidator.validate_region(region)
+    end
+
+    context 'When `region` is not a string' do
+      def second_setup
+        setup(region: 132)
+      end
+
+      it 'Returns REGION_IS_NOT_A_STRING' do
+        errors = second_setup
+        first_error = errors.first
+
+        expect(errors.length).to eq(1)
+        expect(first_error).to be_instance_of(Domain::AirportValidationError)
+        expect(first_error.reason).to eq('REGION_IS_NOT_A_STRING')
+      end
     end
 
     context 'When `region` is too short' do

@@ -1,4 +1,4 @@
-class Domain::CreateAirportDto
+class Domain::UpdateAirportDto
   def initialize(code:, name:, country_code:, city:, terminal:, region:)
     code_errors = Domain::AirportValidator.validate_code(code)
     name_errors = Domain::AirportValidator.validate_name(name)
